@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import OrganizationUsers, Positions, EmployeeProfile
 
-# Register your models here.
+admin.site.register(OrganizationUsers)
+admin.site.register(Positions)
+admin.site.register(EmployeeProfile)

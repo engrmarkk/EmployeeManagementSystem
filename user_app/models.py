@@ -22,7 +22,7 @@ class OrganizationUsers(AbstractUser):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=255)
+    password = models.TextField()
     active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     left = models.BooleanField(default=False)
@@ -44,7 +44,7 @@ class OrganizationUsers(AbstractUser):
     )
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["first_name", "last_name", "password", "position"]
+    REQUIRED_FIELDS = ["first_name", "last_name", "password"]
 
     def __str__(self):
         return self.email

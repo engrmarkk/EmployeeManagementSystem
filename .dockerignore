@@ -1,0 +1,12 @@
+env
+__pycache__
+.DS_Store
+*.pyc
+*.pyo
+*.egg-info
+*.swp
+*.swo
+*.log
+*.out
+*.lock
+.idea

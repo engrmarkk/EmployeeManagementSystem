@@ -1,5 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -142,12 +143,24 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = 'user_app.OrganizationUsers'
 LOGIN_URL = 'login'
 
+
+# Celery configuration
+CELERY_BROKER_URL = os.environ.get('REDIS_URL')
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Africa/Lagos'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+# TIME_ZONE = "UTC"
+TIME_ZONE = 'Africa/Lagos'
 
 USE_I18N = True
 

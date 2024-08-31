@@ -84,3 +84,19 @@ class LoginSerializer(serializers.Serializer):
 
         data['user'] = user
         return data
+
+
+# forget password
+class ForgetPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=False)
+
+    def validate(self, data):
+        email = data.get('email')
+        if not email:
+            raise serializers.ValidationError("Email is required.")
+        user = OrganizationUsers.objects.filter(email=email).first()
+        if not user:
+            raise serializers.ValidationError("User not found.")
+        # send the user otp mail
+        data['user'] = user
+        return data

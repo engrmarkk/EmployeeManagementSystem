@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer, LoginSerializer
+from .serializers import UserSerializer, LoginSerializer, ForgetPasswordSerializer
 from rest_framework.exceptions import ValidationError
 from .helper import get_tokens_for_user
 
@@ -34,5 +34,19 @@ class LoginView(APIView):
                 "message": "Login successful",
                 "token": token,
                 "user": UserSerializer(user).data
+            }, status=status.HTTP_200_OK)
+        raise ValidationError(serializer.errors)
+
+
+class ForgetPasswordView(APIView):
+    serializer_class = ForgetPasswordSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            user = serializer.validated_data['user']
+            # send otp to the user
+            return Response({
+                "message": "Otp sent successfully",
             }, status=status.HTTP_200_OK)
         raise ValidationError(serializer.errors)

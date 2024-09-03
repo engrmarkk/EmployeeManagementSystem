@@ -13,6 +13,9 @@ class PositionView(viewsets.ModelViewSet):
     queryset = Positions.objects.all()
     serializer_class = PositionsSerializer
 
+    def get_object(self):
+        return Positions.objects.get(id=self.kwargs.get('pk'))
+
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)

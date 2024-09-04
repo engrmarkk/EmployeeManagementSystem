@@ -35,7 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
             last_name=validated_data.get('last_name'),
             email=validated_data.get('email'),
             active=validated_data.get('active', True),
-            is_admin=validated_data.get('is_admin', True),
+            is_admin=validated_data.get('is_admin', False),
             left=validated_data.get('left', False)
         )
         user.set_password(validated_data.get('password'))  # Hash the password

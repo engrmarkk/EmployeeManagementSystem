@@ -3,6 +3,7 @@ FROM python:3.8-alpine3.15
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
+# Install system dependencies
 RUN apk update && apk add --no-cache \
     postgresql-dev \
     gcc \
@@ -11,14 +12,20 @@ RUN apk update && apk add --no-cache \
     tzdata \
     libc-dev
 
+# Set working directory
 WORKDIR /app
 
-COPY requirements.txt /app
+# Copy requirements file
+COPY requirements.txt .
 
+# Install Python packages
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy project files
 COPY . .
 
+# Expose port 9000
 EXPOSE 9000
 
+# Start Gunicorn
 CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:9000", "emp_project.wsgi:application"]

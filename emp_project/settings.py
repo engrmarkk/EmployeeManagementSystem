@@ -65,12 +65,24 @@ WSGI_APPLICATION = "emp_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB'),  # Database name
+        'USER': os.getenv('POSTGRES_USER'),  # Database user
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),  # Database password
+        'HOST': os.getenv('POSTGRES_HOST'),  # Database host
+        'PORT': os.getenv('POSTGRES_PORT'),  # Default PostgreSQL port
     }
 }
+
 
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'auth_app.exceptions.custom_exception_handler',

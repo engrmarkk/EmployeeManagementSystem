@@ -34,12 +34,13 @@ class PositionView(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
+        for data in serializer.data:
+            data["name"] = data["name"].title()
         return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(
-            {"message": "Position deleted successfully"},
-            status=status.HTTP_200_OK
+            {"message": "Position deleted successfully"}, status=status.HTTP_200_OK
         )
